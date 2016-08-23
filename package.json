@@ -1,0 +1,25 @@
+{
+  "name": "game_life",
+  "version": "1.0.0",
+  "description": "FreeCodeCamp coursework.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whitepear/game-of-life.git"
+  },
+  "keywords": [
+    "freecodecamp",
+    "react",
+    "javascript",
+    "sass"
+  ],
+  "author": "whitepear",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whitepear/game-of-life/issues"
+  },
+  "homepage": "https://github.com/whitepear/game-of-life#readme"
+}
