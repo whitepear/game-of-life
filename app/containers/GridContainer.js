@@ -11,7 +11,12 @@ var GridContainer = React.createClass({
 		}
 		return grid;
 	},
-	render: function () {
+	getInitialState: function () {
+		return {
+			gridArray: this.createGridArray(this.props.gridRows)
+		};
+	},
+	render: function () {		
 		return (
 			<Cell />
 		)
