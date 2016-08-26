@@ -1,7 +1,12 @@
 var React = require('react');
+var PropTypes = React.PropTypes;
 var Cell = require('../components/Cell.js');
 
 var GridContainer = React.createClass({
+	propTypes: {
+		gridRows: PropTypes.number.isRequired,
+		gridColumns: PropTypes.number.isRequired
+	},
 	createGridArray: function () {
 		// this function creates a two-dimensional array
 		// array height is dependent on the value of this.props.gridRows
