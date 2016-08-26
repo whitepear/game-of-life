@@ -4,13 +4,15 @@ var GridContainer = require('./GridContainer.js');
 var MainContainer = React.createClass({
 	getInitialState: function () {
 		return {
-			gridRows: 8,
-			gridColumns: 5
+			gridRows: 10,
+			gridColumns: 10
 		};
 	},
 	render: function () {
 		return (
-			<GridContainer gridRows={this.state.gridRows} gridColumns={this.state.gridColumns} />
+			<div className="container">
+				<GridContainer gridRows={this.state.gridRows} gridColumns={this.state.gridColumns} />
+			</div>			
 		)		
 	}
 });

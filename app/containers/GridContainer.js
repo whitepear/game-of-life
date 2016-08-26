@@ -27,13 +27,14 @@ var GridContainer = React.createClass({
 		};
 	},
 	render: function () {	
+		console.log(this.state);
 		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
 		var keyGen = 0;
 		return (			
 			<div className="grid">				
 				{flattenedGridArray.map(function (binaryElement) {
-					return <Cell key={keyGen++} alive={binaryElement} />
-				})}
+					return <Cell key={keyGen++} alive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
+				}.bind(this))}
 			</div>			
 		)
 	}

@@ -1,0 +1,22 @@
+.grid {
+	margin: 100px auto;	
+	border: 1px solid #000;
+	width: 500px;
+	height: 500px;
+	line-height: 0;
+}
+
+.cell {	
+	display: inline-block;
+}
+
+.alive {
+	@extend .cell;
+	background: red;
+}
+
+.dead {
+	@extend .cell;
+	background: blue;
+	color: #fff;
+}
