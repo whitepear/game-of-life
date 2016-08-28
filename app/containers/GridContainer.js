@@ -7,6 +7,12 @@ var GridContainer = React.createClass({
 		gridRows: PropTypes.number.isRequired,
 		gridColumns: PropTypes.number.isRequired
 	},
+	getInitialState: function () {		
+		return {			
+			populatedGrid: this.randomGridPopulator(this.createGridArray()),
+			updatedGrid: []
+		};
+	},
 	createGridArray: function () {
 		// this function creates a two-dimensional array
 		// array height is dependent on the value of this.props.gridRows
@@ -25,12 +31,40 @@ var GridContainer = React.createClass({
 			}
 		}		
 		return grid;
-	},
-	getInitialState: function () {		
-		return {			
-			populatedGrid: this.randomGridPopulator(this.createGridArray())
-		};
-	},
+	},	
+	nextGrid: function (currentGrid) {
+		// this function generates the next grid iteration
+		// produced by the application of game rules to the current grid
+
+		function checkNeighbours (currentRow, currentColumn) {
+			// this function returns the total no. of live cells neighbouring the current cell
+			
+			// ternary operator is used to check for cells on grid's edge
+			// this ternary check is used to implement a toroidal game-board			
+			var rowAbove = (currentRow - 1 < 0) ? (this.props.gridRows - 1) : currentRow - 1;
+	    var rowBelow = (currentRow + 1 === this.props.gridRows) ? 0 : currentRow + 1;
+	    var columnLeft = (currentColumn - 1 < 0) ? (this.props.gridColumns - 1) : currentColumn - 1;
+	    var columnRight = (currentColumn + 1 === this.props.gridColumns) ? 0 : currentColumn + 1;
+
+	    var liveNeighbours = 0;
+	    liveNeighbours += currentGrid[rowAbove][columnLeft];
+	    liveNeighbours += currentGrid[rowAbove][currentColumn];
+	    liveNeighbours += currentGrid[rowAbove][columnRight];
+	    liveNeighbours += currentGrid[currentRow][columnLeft];
+	    liveNeighbours += currentGrid[currentRow][columnRight];
+	    liveNeighbours += currentGrid[rowBelow][columnLeft];
+	    liveNeighbours += currentGrid[rowBelow][currentColumn];
+	    liveNeighbours += currentGrid[rowBelow][columnRight];
+
+	    return liveNeighbours;
+		} // end checkNeighbours
+
+		for (var j = 0; j < this.props.gridRows; j++) {
+			for (var k = 0; k < this.props.gridColumns; k++) {
+				
+			}
+		} 
+	},	
 	render: function () {	
 		console.log(this.state);
 		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
@@ -38,7 +72,7 @@ var GridContainer = React.createClass({
 		return (			
 			<div className="grid">				
 				{flattenedGridArray.map(function (binaryElement) {
-					return <Cell key={keyGen++} alive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
+					return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
 				}.bind(this))}
 			</div>			
 		)
