@@ -7,12 +7,12 @@ function Cell (props) {
 		width: (100/props.gridColumns) + '%'
 	};
 	return (
-		<div className={props.alive ? 'alive' : 'dead'} style={cellDimensions}></div>
+		<div className={props.isAlive ? 'alive' : 'dead'} style={cellDimensions}></div>
 	)
 }
 
 Cell.propTypes = {	
-	alive: PropTypes.number.isRequired,
+	isAlive: PropTypes.number.isRequired,
 	gridRows: PropTypes.number.isRequired,
 	gridColumns: PropTypes.number.isRequired
 };
