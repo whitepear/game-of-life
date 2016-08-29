@@ -9,7 +9,8 @@ var GridContainer = React.createClass({
 	},
 	getInitialState: function () {		
 		return {			
-			populatedGrid: this.randomGridPopulator(this.createGridArray())
+			populatedGrid: this.randomGridPopulator(this.createGridArray()),
+			gridIterations: 0
 		};
 	},
 	createGridArray: function () {
@@ -88,22 +89,28 @@ var GridContainer = React.createClass({
 		} // end outer loop		
 		
 		this.setState({
-			populatedGrid: updatedGrid
+			populatedGrid: updatedGrid,
+			gridIterations: this.state.gridIterations + 1
+		}, function () {
+			console.log(this.state);
 		});
 	},	
 	componentDidMount: function () {
 		var gridInterval = setInterval(function () {
 			this.nextGrid(this.state.populatedGrid);
-		}.bind(this), 100);
+		}.bind(this), 1000);
 	},
 	render: function () {	
 		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
 		var keyGen = 0;
-		return (			
-			<div className="grid">				
-				{flattenedGridArray.map(function (binaryElement) {
-					return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
-				}.bind(this))}
+		return (	
+			<div>		
+				<div className="grid">				
+					{flattenedGridArray.map(function (binaryElement) {
+						return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
+					}.bind(this))}
+				</div>
+				<div>{this.state.gridIterations}</div>
 			</div>			
 		)
 	}
