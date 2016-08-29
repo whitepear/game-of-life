@@ -8,6 +8,7 @@ function GridControls (props) {
 			<button type="button" className="btn btn-success" onClick={props.onToggleRunning}>
 				{props.isGridRunning ? 'Pause' : 'Start'}
 			</button>
+			<button type="button" className="btn btn-warning" onClick={props.onClearGrid}>Clear Grid</button>
 		</div>			
 	)
 }
@@ -15,6 +16,7 @@ function GridControls (props) {
 GridControls.propTypes = {
 	gridIterations: PropTypes.number.isRequired,
 	onToggleRunning: PropTypes.func.isRequired,
+	onClearGrid: PropTypes.func.isRequired,
 	isGridRunning: PropTypes.bool.isRequired	
 };
 
