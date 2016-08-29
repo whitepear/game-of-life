@@ -1,6 +1,6 @@
 var React = require('react');
-var PropTypes = React.PropTypes;
 var Cell = require('../components/Cell.js');
+var GridControls = require('../components/GridControls.js');
 
 var GridContainer = React.createClass({	
 	getInitialState: function () {		
@@ -92,7 +92,7 @@ var GridContainer = React.createClass({
 			gridIterations: this.state.gridIterations + 1
 		});
 	},	
-	toggleGridRunning: function (e) {
+	handleToggleRunning: function (e) {
 		this.setState({
 			isGridRunning: !(this.state.isGridRunning)
 		});
@@ -108,14 +108,19 @@ var GridContainer = React.createClass({
 		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
 		var keyGen = 0;
 		return (	
-			<div>		
+			<div className="container">		
 				<div className="grid">				
 					{flattenedGridArray.map(function (binaryElement) {
-						return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.state.gridRows} gridColumns={this.state.gridColumns} />
+						return <Cell key={keyGen++}
+												 isAlive={binaryElement} 
+											   gridRows={this.state.gridRows} 
+											   gridColumns={this.state.gridColumns} />
 					}.bind(this))}
 				</div>
-				<div>Generations: {this.state.gridIterations}</div>
-				<button type="button" className="btn btn-success" onClick={this.toggleGridRunning}>{this.state.isGridRunning ? 'Pause' : 'Start'}</button>
+				<GridControls 
+					gridIterations={this.state.gridIterations}
+					onToggleRunning={this.handleToggleRunning} 
+					isGridRunning={this.state.isGridRunning} />			
 			</div>			
 		)
 	}
