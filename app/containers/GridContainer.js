@@ -2,32 +2,30 @@ var React = require('react');
 var PropTypes = React.PropTypes;
 var Cell = require('../components/Cell.js');
 
-var GridContainer = React.createClass({
-	propTypes: {
-		gridRows: PropTypes.number.isRequired,
-		gridColumns: PropTypes.number.isRequired,
-		isGridRunning: PropTypes.bool.isRequired
-	},
+var GridContainer = React.createClass({	
 	getInitialState: function () {		
 		return {			
-			populatedGrid: this.randomGridPopulator(this.createGridArray()),
-			gridIterations: 0
+			populatedGrid: this.randomGridPopulator(this.createGridArray(50), 50, 50),
+			gridRows: 50,
+			gridColumns: 50,
+			gridIterations: 0,
+			isGridRunning: true
 		};
 	},
-	createGridArray: function () {
+	createGridArray: function (rows) {
 		// this function creates a two-dimensional array
-		// grid height is dependent on the value of this.props.gridRows
+		// grid height is dependent on the value of parameter 'rows'
 		var grid = [];
-		for (var i = 0; i < this.props.gridRows; i++) {
+		for (var i = 0; i < rows; i++) {
 			grid[i] = [];
 		}
 		return grid;
 	},
-	randomGridPopulator: function (grid) {
+	randomGridPopulator: function (grid, rows, columns) {
 		// this function randomly populates the grid array with 1's and 0's 	
-		// grid width is dependent on the value of this.props.gridColumns	
-		for (var j = 0; j < this.props.gridRows; j++) {			
-			for (var k = 0; k < this.props.gridColumns; k++) {
+		// grid width is dependent on the value of parameter 'columns'	
+		for (var j = 0; j < rows; j++) {			
+			for (var k = 0; k < columns; k++) {
 				grid[j][k] = Math.round(Math.random());
 			}
 		}		
@@ -42,10 +40,10 @@ var GridContainer = React.createClass({
 			
 			// ternary operator is used to check for cells on grid's edge
 			// this ternary check is used to implement a toroidal game-board			
-			var rowAbove = (currentRow - 1 < 0) ? (this.props.gridRows - 1) : currentRow - 1;
-	    var rowBelow = (currentRow + 1 === this.props.gridRows) ? 0 : currentRow + 1;
-	    var columnLeft = (currentColumn - 1 < 0) ? (this.props.gridColumns - 1) : currentColumn - 1;
-	    var columnRight = (currentColumn + 1 === this.props.gridColumns) ? 0 : currentColumn + 1;
+			var rowAbove = (currentRow - 1 < 0) ? (this.state.gridRows - 1) : currentRow - 1;
+	    var rowBelow = (currentRow + 1 === this.state.gridRows) ? 0 : currentRow + 1;
+	    var columnLeft = (currentColumn - 1 < 0) ? (this.state.gridColumns - 1) : currentColumn - 1;
+	    var columnRight = (currentColumn + 1 === this.state.gridColumns) ? 0 : currentColumn + 1;
 
 	    var liveNeighbours = 0;
 	    liveNeighbours += currentGrid[rowAbove][columnLeft];
@@ -62,11 +60,11 @@ var GridContainer = React.createClass({
 
 		// create an array to temporarily hold the next iteration of game state 
 		// its value will be used to update game state later
-		var updatedGrid = this.createGridArray(); 
+		var updatedGrid = this.createGridArray(this.state.gridRows); 
 		
 		// loop through rows and columns
-		for (var j = 0; j < this.props.gridRows; j++) {
-			for (var k = 0; k < this.props.gridColumns; k++) {
+		for (var j = 0; j < this.state.gridRows; j++) {
+			for (var k = 0; k < this.state.gridColumns; k++) {
 				// get total no. of live cells surrounding current cell
 				var liveNeighbours = checkNeighbours.call(this, j, k);
 				if (currentGrid[j][k]) {
@@ -94,10 +92,15 @@ var GridContainer = React.createClass({
 			gridIterations: this.state.gridIterations + 1
 		});
 	},	
+	toggleGridRunning: function (e) {
+		this.setState({
+			isGridRunning: !(this.state.isGridRunning)
+		});
+	},
 	componentDidMount: function () {
 		var gridInterval = setInterval(function () {
-			if (this.props.isGridRunning) {				
-			this.nextGrid(this.state.populatedGrid);
+			if (this.state.isGridRunning) {				
+				this.nextGrid(this.state.populatedGrid);
 			}
 		}.bind(this), 1000);
 	},
@@ -108,10 +111,11 @@ var GridContainer = React.createClass({
 			<div>		
 				<div className="grid">				
 					{flattenedGridArray.map(function (binaryElement) {
-						return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
+						return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.state.gridRows} gridColumns={this.state.gridColumns} />
 					}.bind(this))}
 				</div>
 				<div>Generations: {this.state.gridIterations}</div>
+				<button type="button" className="btn btn-success" onClick={this.toggleGridRunning}>{this.state.isGridRunning ? 'Pause' : 'Start'}</button>
 			</div>			
 		)
 	}
