@@ -97,12 +97,21 @@ var GridContainer = React.createClass({
 			isGridRunning: !(this.state.isGridRunning)
 		});
 	},
+	handleClearGrid: function (e) {
+		this.setState({
+			populatedGrid: this.randomGridPopulator(this.createGridArray(0), 0, 0),
+			gridRows: 0,
+			gridColumns: 0,
+			gridIterations: 0,
+			isGridRunning: false			
+		})
+	},
 	componentDidMount: function () {
 		var gridInterval = setInterval(function () {
 			if (this.state.isGridRunning) {				
 				this.nextGrid(this.state.populatedGrid);
 			}
-		}.bind(this), 1000);
+		}.bind(this), 500);
 	},
 	render: function () {	
 		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
@@ -119,7 +128,8 @@ var GridContainer = React.createClass({
 				</div>
 				<GridControls 
 					gridIterations={this.state.gridIterations}
-					onToggleRunning={this.handleToggleRunning} 
+					onToggleRunning={this.handleToggleRunning}
+					onClearGrid={this.handleClearGrid} 
 					isGridRunning={this.state.isGridRunning} />			
 			</div>			
 		)
