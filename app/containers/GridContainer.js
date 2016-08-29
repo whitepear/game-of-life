@@ -9,13 +9,12 @@ var GridContainer = React.createClass({
 	},
 	getInitialState: function () {		
 		return {			
-			populatedGrid: this.randomGridPopulator(this.createGridArray()),
-			updatedGrid: []
+			populatedGrid: this.randomGridPopulator(this.createGridArray())
 		};
 	},
 	createGridArray: function () {
 		// this function creates a two-dimensional array
-		// array height is dependent on the value of this.props.gridRows
+		// grid height is dependent on the value of this.props.gridRows
 		var grid = [];
 		for (var i = 0; i < this.props.gridRows; i++) {
 			grid[i] = [];
@@ -24,7 +23,7 @@ var GridContainer = React.createClass({
 	},
 	randomGridPopulator: function (grid) {
 		// this function randomly populates the grid array with 1's and 0's 	
-		// array width becomes realised via the value of this.props.gridColumns	
+		// grid width is dependent on the value of this.props.gridColumns	
 		for (var j = 0; j < this.props.gridRows; j++) {			
 			for (var k = 0; k < this.props.gridColumns; k++) {
 				grid[j][k] = Math.round(Math.random());
@@ -35,7 +34,7 @@ var GridContainer = React.createClass({
 	nextGrid: function (currentGrid) {
 		// this function generates the next grid iteration
 		// produced by the application of game rules to the current grid
-
+		
 		function checkNeighbours (currentRow, currentColumn) {
 			// this function returns the total no. of live cells neighbouring the current cell
 			
@@ -59,14 +58,45 @@ var GridContainer = React.createClass({
 	    return liveNeighbours;
 		} // end checkNeighbours
 
+		// create an array to temporarily hold the next iteration of game state 
+		// its value will be used to update game state later
+		var updatedGrid = this.createGridArray(); 
+		
+		// loop through rows and columns
 		for (var j = 0; j < this.props.gridRows; j++) {
 			for (var k = 0; k < this.props.gridColumns; k++) {
-				
-			}
-		} 
+				// get total no. of live cells surrounding current cell
+				var liveNeighbours = checkNeighbours.call(this, j, k);
+				if (currentGrid[j][k]) {
+					// ^ if the current cell is alive (i.e. === 1), then...
+					if (liveNeighbours < 2) {
+						updatedGrid[j][k] = 0;
+					} else if (liveNeighbours === 2 || liveNeighbours === 3) {
+						updatedGrid[j][k] = 1;
+					} else if (liveNeighbours > 3) {
+						updatedGrid[j][k] = 0;
+					}
+				} else {
+					// if the current cell is dead (i.e. === 0), then...
+					if (liveNeighbours === 3) {
+						updatedGrid[j][k] = 1;
+					} else {
+						updatedGrid[j][k] = 0;
+					}
+				}// end first if/else
+			} // end inner loop
+		} // end outer loop		
+		
+		this.setState({
+			populatedGrid: updatedGrid
+		});
 	},	
+	componentDidMount: function () {
+		var gridInterval = setInterval(function () {
+			this.nextGrid(this.state.populatedGrid);
+		}.bind(this), 100);
+	},
 	render: function () {	
-		console.log(this.state);
 		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
 		var keyGen = 0;
 		return (			
