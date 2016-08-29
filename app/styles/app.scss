@@ -1,6 +1,7 @@
 .grid {
 	margin: 100px auto;	
-	border: 1px solid #000;
+	background: #ddd;
+	border: 1px solid #555;
 	width: 500px;
 	height: 500px;
 	line-height: 0;
@@ -8,6 +9,7 @@
 
 .cell {	
 	display: inline-block;
+	border: 1px solid #555;
 }
 
 .alive {
@@ -16,7 +18,5 @@
 }
 
 .dead {
-	@extend .cell;
-	background: blue;
-	color: #fff;
+	@extend .cell;	
 }
