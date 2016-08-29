@@ -5,7 +5,8 @@ var Cell = require('../components/Cell.js');
 var GridContainer = React.createClass({
 	propTypes: {
 		gridRows: PropTypes.number.isRequired,
-		gridColumns: PropTypes.number.isRequired
+		gridColumns: PropTypes.number.isRequired,
+		isGridRunning: PropTypes.bool.isRequired
 	},
 	getInitialState: function () {		
 		return {			
@@ -91,13 +92,13 @@ var GridContainer = React.createClass({
 		this.setState({
 			populatedGrid: updatedGrid,
 			gridIterations: this.state.gridIterations + 1
-		}, function () {
-			console.log(this.state);
 		});
 	},	
 	componentDidMount: function () {
 		var gridInterval = setInterval(function () {
+			if (this.props.isGridRunning) {				
 			this.nextGrid(this.state.populatedGrid);
+			}
 		}.bind(this), 1000);
 	},
 	render: function () {	
@@ -110,7 +111,7 @@ var GridContainer = React.createClass({
 						return <Cell key={keyGen++} isAlive={binaryElement} gridRows={this.props.gridRows} gridColumns={this.props.gridColumns} />
 					}.bind(this))}
 				</div>
-				<div>{this.state.gridIterations}</div>
+				<div>Generations: {this.state.gridIterations}</div>
 			</div>			
 		)
 	}
