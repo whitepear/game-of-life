@@ -31,6 +31,24 @@ var GridContainer = React.createClass({
 		}		
 		return grid;
 	},	
+	createGridJSX: function (populatedGridArray) {
+		// this function returns a one-dimensional array of Cell JSX components,
+		// based on populatedGrid
+		var keyGen = 0;
+		var cellArray = [];
+		populatedGridArray.forEach(function (row, rowIndex) {
+			row.forEach(function (column, columnIndex) {
+				cellArray.push(<Cell key={keyGen++}
+										 				 isAlive={column}
+														 cellRowOrigin={rowIndex}
+														 cellColumnOrigin={columnIndex} 
+													   gridRows={this.state.gridRows} 
+													   gridColumns={this.state.gridColumns} />);
+			}.bind(this));
+		}.bind(this));		
+
+		return cellArray;
+	},
 	nextGrid: function (currentGrid) {
 		// this function generates the next grid iteration
 		// produced by the application of game rules to the current grid
@@ -113,18 +131,11 @@ var GridContainer = React.createClass({
 			}
 		}.bind(this), 500);
 	},
-	render: function () {	
-		var flattenedGridArray = [].concat.apply([], this.state.populatedGrid);
-		var keyGen = 0;
+	render: function () {			
 		return (	
 			<div className="container">		
 				<div className="grid">				
-					{flattenedGridArray.map(function (binaryElement) {
-						return <Cell key={keyGen++}
-												 isAlive={binaryElement} 
-											   gridRows={this.state.gridRows} 
-											   gridColumns={this.state.gridColumns} />
-					}.bind(this))}
+					{this.createGridJSX(this.state.populatedGrid)}
 				</div>
 				<GridControls 
 					gridIterations={this.state.gridIterations}
