@@ -13,8 +13,8 @@ var GridContainer = React.createClass({
 		};
 	},
 	createGridArray: function (rows) {
-		// this function creates a two-dimensional array
-		// grid height is dependent on the value of parameter 'rows'
+		// this function creates a two-dimensional array.
+		// grid height is dependent on the value of parameter 'rows'.
 		var grid = [];
 		for (var i = 0; i < rows; i++) {
 			grid[i] = [];
@@ -22,15 +22,15 @@ var GridContainer = React.createClass({
 		return grid;
 	},
 	randomGridPopulator: function (grid, rows, columns) {
-		// this function randomly populates the grid array with 1's and 0's 	
-		// grid width is dependent on the value of parameter 'columns'	
+		// this function randomly populates the grid array with ones and zeroes. 	
+		// grid width is dependent on the value of parameter 'columns'.	
 		for (var j = 0; j < rows; j++) {			
 			for (var k = 0; k < columns; k++) {
 				grid[j][k] = Math.round(Math.random());
 			}
 		}		
 		return grid;
-	},	
+	},		
 	createGridJSX: function (populatedGridArray) {
 		// this function returns a one-dimensional array of Cell JSX components,
 		// based on populatedGrid
@@ -51,14 +51,14 @@ var GridContainer = React.createClass({
 		return cellArray;
 	},
 	nextGrid: function (currentGrid) {
-		// this function generates the next grid iteration
-		// produced by the application of game rules to the current grid
+		// this function generates the next grid iteration,
+		// produced by the application of game rules to the current grid.
 		
 		function checkNeighbours (currentRow, currentColumn) {
-			// this function returns the total no. of live cells neighbouring the current cell
+			// this function returns the total no. of live cells neighbouring the current cell.
 			
-			// ternary operator is used to check for cells on grid's edge
-			// this ternary check is used to implement a toroidal game-board			
+			// ternary operator is used to check for cells on grid's edge.
+			// this ternary check is used to implement a toroidal game-board.			
 			var rowAbove = (currentRow - 1 < 0) ? (this.state.gridRows - 1) : currentRow - 1;
 	    var rowBelow = (currentRow + 1 === this.state.gridRows) ? 0 : currentRow + 1;
 	    var columnLeft = (currentColumn - 1 < 0) ? (this.state.gridColumns - 1) : currentColumn - 1;
@@ -77,14 +77,14 @@ var GridContainer = React.createClass({
 	    return liveNeighbours;
 		} // end checkNeighbours
 
-		// create an array to temporarily hold the next iteration of game state 
-		// its value will be used to update game state later
+		// create an array to temporarily hold the next iteration of game state. 
+		// its value will be used to update game state later.
 		var updatedGrid = this.createGridArray(this.state.gridRows); 
 		
-		// loop through rows and columns
+		// loop through rows and columns.
 		for (var j = 0; j < this.state.gridRows; j++) {
 			for (var k = 0; k < this.state.gridColumns; k++) {
-				// get total no. of live cells surrounding current cell
+				// get total no. of live cells surrounding current cell.
 				var liveNeighbours = checkNeighbours.call(this, j, k);
 				if (currentGrid[j][k]) {
 					// ^ if the current cell is alive (i.e. === 1), then...
@@ -117,7 +117,7 @@ var GridContainer = React.createClass({
 		// has its value inverted.
 		
 		// .map with .slice(0) to generate a deep value copy of the 2D array referenced
-		// by this.state.populatedGrid
+		// by this.state.populatedGrid.
 		var currentGridCopy = this.state.populatedGrid.map(function (row) {
 			return row.slice(0);
 		});
@@ -136,13 +136,28 @@ var GridContainer = React.createClass({
 		});
 	},
 	handleClearGrid: function (e) {
+		// this function clears the grid and resets state.
+
+		function createClearedArray (rows, columns) {
+			// this function creates a two-dimensional array.
+			// the nested arrays contain only zeroes.
+			var clearedArray = [];
+			for (var j = 0; j < rows; j++) {
+				clearedArray[j] = [];
+				for (var k = 0; k < columns; k++) {
+					clearedArray[j][k] = 0;
+				}
+			}			
+			return clearedArray;
+		} // end createClearedArray
+
 		this.setState({
-			populatedGrid: this.randomGridPopulator(this.createGridArray(0), 0, 0),
-			gridRows: 0,
-			gridColumns: 0,
+			populatedGrid: createClearedArray(this.state.gridRows, this.state.gridColumns),
+			gridRows: this.state.gridRows,
+			gridColumns: this.state.gridColumns,
 			gridIterations: 0,
 			isGridRunning: false			
-		})
+		});
 	},
 	componentDidMount: function () {
 		var gridInterval = setInterval(function () {
