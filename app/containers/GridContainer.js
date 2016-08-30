@@ -42,6 +42,7 @@ var GridContainer = React.createClass({
 										 				 isAlive={column}
 														 cellRowOrigin={rowIndex}
 														 cellColumnOrigin={columnIndex} 
+														 onChangeCell={this.handleChangeCell}
 													   gridRows={this.state.gridRows} 
 													   gridColumns={this.state.gridColumns} />);
 			}.bind(this));
@@ -110,6 +111,25 @@ var GridContainer = React.createClass({
 			gridIterations: this.state.gridIterations + 1
 		});
 	},	
+	handleChangeCell: function (e) {
+		// this function handles user-placement/removal of cells on game-grid via clicking.
+		// user clicks on a game-grid cell. the corresponding cell within populatedGrid array
+		// has its value inverted.
+		
+		// .map with .slice(0) to generate a deep value copy of the 2D array referenced
+		// by this.state.populatedGrid
+		var currentGridCopy = this.state.populatedGrid.map(function (row) {
+			return row.slice(0);
+		});
+
+		var cellRow = parseInt(e.target.dataset.rowOrigin);
+		var cellColumn = parseInt(e.target.dataset.columnOrigin);
+		currentGridCopy[cellRow][cellColumn] = currentGridCopy[cellRow][cellColumn] === 1 ? 0 : 1;
+		
+		this.setState({
+			populatedGrid: currentGridCopy 
+		});
+	},
 	handleToggleRunning: function (e) {
 		this.setState({
 			isGridRunning: !(this.state.isGridRunning)
