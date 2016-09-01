@@ -1,7 +1,5 @@
 // INCLUDE:
 // SPEED (10MS OR 100MS OR 1000MS?)
-// STEP FORWARD ONCE (ACTIVE ONLY DURING PAUSE?)
-// RANDOMISE GRID CONTENTS BUTTON
 // CHANGE GRID SIZE?
 
 var React = require('react');
@@ -56,9 +54,11 @@ var GridContainer = React.createClass({
 
 		return cellArray;
 	},
-	nextGrid: function (currentGrid) {
+	nextGrid: function () {
 		// this function generates the next grid iteration,
 		// produced by the application of game rules to the current grid.
+
+		var currentGrid = this.state.populatedGrid;
 		
 		function checkNeighbours (currentRow, currentColumn) {
 			// this function returns the total no. of live cells neighbouring the current cell.
@@ -176,7 +176,7 @@ var GridContainer = React.createClass({
 		// start the interval function that updates the grid every x milliseconds
 		var gridInterval = setInterval(function () {
 			if (this.state.isGridRunning) {				
-				this.nextGrid(this.state.populatedGrid);
+				this.nextGrid();
 			}
 		}.bind(this), 10);
 	},	
@@ -191,6 +191,7 @@ var GridContainer = React.createClass({
 					onToggleRunning={this.handleToggleRunning}
 					onClearGrid={this.handleClearGrid} 
 					onRandomiseGrid={this.handleRandomiseGrid}
+					nextGrid={this.nextGrid}
 					isGridRunning={this.state.isGridRunning} />			
 			</div>			
 		)
