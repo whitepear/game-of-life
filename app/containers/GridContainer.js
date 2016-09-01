@@ -1,3 +1,9 @@
+// INCLUDE:
+// SPEED (10MS OR 100MS OR 1000MS?)
+// STEP FORWARD ONCE (ACTIVE ONLY DURING PAUSE?)
+// RANDOMISE GRID CONTENTS BUTTON
+// CHANGE GRID SIZE?
+
 var React = require('react');
 var Cell = require('../components/Cell.js');
 var GridControls = require('../components/GridControls.js');
@@ -159,13 +165,21 @@ var GridContainer = React.createClass({
 			isGridRunning: false			
 		});
 	},
+	handleRandomiseGrid: function () {
+		// this function randomises the grid array
+		this.setState({
+			populatedGrid: this.randomGridPopulator(this.createGridArray(this.state.gridRows), this.state.gridRows, this.state.gridColumns),
+			gridIterations: 0
+		});
+	},
 	componentDidMount: function () {
+		// start the interval function that updates the grid every x milliseconds
 		var gridInterval = setInterval(function () {
 			if (this.state.isGridRunning) {				
 				this.nextGrid(this.state.populatedGrid);
 			}
-		}.bind(this), 500);
-	},
+		}.bind(this), 10);
+	},	
 	render: function () {			
 		return (	
 			<div className="container">		
@@ -176,6 +190,7 @@ var GridContainer = React.createClass({
 					gridIterations={this.state.gridIterations}
 					onToggleRunning={this.handleToggleRunning}
 					onClearGrid={this.handleClearGrid} 
+					onRandomiseGrid={this.handleRandomiseGrid}
 					isGridRunning={this.state.isGridRunning} />			
 			</div>			
 		)
