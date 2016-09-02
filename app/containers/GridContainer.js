@@ -1,7 +1,3 @@
-// INCLUDE:
-// SPEED (10MS OR 100MS OR 1000MS?)
-// CHANGE GRID SIZE?
-
 var React = require('react');
 var Cell = require('../components/Cell.js');
 var GridControls = require('../components/GridControls.js');
@@ -37,7 +33,7 @@ var GridContainer = React.createClass({
 	},		
 	createGridJSX: function (populatedGridArray) {
 		// this function returns a one-dimensional array of Cell JSX components,
-		// based on populatedGrid
+		// based on populatedGrid.
 		var keyGen = 0;
 		var cellArray = [];
 		populatedGridArray.forEach(function (row, rowIndex) {
@@ -166,19 +162,19 @@ var GridContainer = React.createClass({
 		});
 	},
 	handleRandomiseGrid: function () {
-		// this function randomises the grid array
+		// this function randomises the grid array.
 		this.setState({
 			populatedGrid: this.randomGridPopulator(this.createGridArray(this.state.gridRows), this.state.gridRows, this.state.gridColumns),
 			gridIterations: 0
 		});
 	},
 	componentDidMount: function () {
-		// start the interval function that updates the grid every x milliseconds
+		// start the interval function that regularly updates the grid.
 		var gridInterval = setInterval(function () {
 			if (this.state.isGridRunning) {				
 				this.nextGrid();
 			}
-		}.bind(this), 10);
+		}.bind(this), 100);
 	},	
 	render: function () {			
 		return (	
