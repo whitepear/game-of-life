@@ -178,7 +178,13 @@ var GridContainer = React.createClass({
 	},	
 	render: function () {			
 		return (	
-			<div className="container">		
+			<div className="container">	
+				<div className="game-title">
+					<p>Conway's</p>
+					<p>Game</p>
+					<p>of</p>
+					<p>Life.</p>
+				</div>	
 				<div className="grid">				
 					{this.createGridJSX(this.state.populatedGrid)}
 				</div>

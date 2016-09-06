@@ -1,15 +1,48 @@
-.grid {
-	margin: 100px auto;	
-	background: #ddd;
-	border: 1px solid #555;
+html {
+	height: 100%;
+}
+
+body {
+	background: url(/app/styles/images/science2.png);
+	height: 100%;	
+}
+
+#app {
+	height: 100%;
+}
+
+.container {	
+	height: 100%;
+}
+
+.game-title {
+	position: absolute;
+  font-family: 'Comfortaa', cursive;
+	font-size: 100px;
+	color: #fff;
+	text-align: right;
 	width: 500px;
-	height: 500px;
+	top: 50px;
+	right: 40px;
+
+	p {
+		margin: 0px;
+	}
+}
+
+.grid {
+	background: rgba(0,0,0,0.55);	
+	margin: 75px auto;	
+	margin-top: 25px;
+	border: 1px solid #555;
+	width: 700px;
+	height: 700px;
 	line-height: 0;
 }
 
 .cell {	
 	display: inline-block;
-	border: 1px solid #555;
+	border: 1px solid #777;
 	
 	&:hover {
 		cursor: pointer;
@@ -18,7 +51,7 @@
 
 .alive {
 	@extend .cell;
-	background: red;
+	background: #B3EB5D;
 }
 
 .dead {
