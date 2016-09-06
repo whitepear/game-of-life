@@ -112,3 +112,56 @@ body {
 		border-bottom-right-radius: 5px;
 	}
 }
+
+
+// MEDIA QUERIES
+////////////////////////////////////////////////////////////////////
+
+@media (max-width: 1765px) {
+	// Change title font-size
+	.game-title {
+		font-size: 70px;
+	}
+}
+
+@media (max-width: 1530px) {
+	// Change title and counter font-size
+	.game-title {
+		font-size: 50px;
+	}
+
+	.generation-counter {
+		font-size: 30px;
+	}
+}
+
+@media (max-width: 1360px) {
+	// Change title and counter font-size
+	.game-title {
+		
+	}
+
+	.generation-counter {
+		
+	}
+
+	.alive {
+		background: #333;
+	}
+}
+
+@media (max-width: 1199px) {
+	
+}
+
+@media (max-width: 991px) {
+
+}
+
+@media (max-width: 767px) {
+
+}	
+
+@media (max-width: 716px) {
+	// grid is unviewable at this width
+}	
