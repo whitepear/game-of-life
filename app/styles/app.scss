@@ -1,15 +1,16 @@
-html {
+html, #app {
 	height: 100%;
 }
 
 body {
-	background: url(/app/styles/images/science2.png);
-	height: 100%;	
+	@extends html;
+	background: url(/app/styles/images/ocean.jpg);		
+	font-family: 'Open Sans', sans-serif;
 }
 
-#app {
-	height: 100%;
-}
+
+// CONTAINER STYLES
+////////////////////////////////////////////////////////////////////
 
 .container {	
 	height: 100%;
@@ -30,11 +31,15 @@ body {
 	}
 }
 
+
+// GRID STYLES
+////////////////////////////////////////////////////////////////////
+
 .grid {
-	background: rgba(0,0,0,0.55);	
 	margin: 75px auto;	
 	margin-top: 25px;
-	border: 1px solid #555;
+	border: 2px solid rgba(0,0,0,0.4);
+	background: rgba(0,0,0,0.3);
 	width: 700px;
 	height: 700px;
 	line-height: 0;
@@ -42,7 +47,7 @@ body {
 
 .cell {	
 	display: inline-block;
-	border: 1px solid #777;
+	border: 1px solid rgba(0,0,0,0.4);
 	
 	&:hover {
 		cursor: pointer;
@@ -51,9 +56,21 @@ body {
 
 .alive {
 	@extend .cell;
-	background: #B3EB5D;
+	background: #96D239;
 }
 
 .dead {
 	@extend .cell;	
+}
+
+
+// GRID-CONTROL STYLES
+////////////////////////////////////////////////////////////////////
+
+.generation-counter {
+	color: #fff;
+	position: absolute;
+	right: 60px;
+	bottom: 250px;
+	font-size: 40px;
 }

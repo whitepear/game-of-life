@@ -4,7 +4,7 @@ var PropTypes = React.PropTypes;
 function GridControls (props) {
 	return (
 		<div>
-			<div>Generations: {props.gridIterations}</div>
+			<div className="generation-counter">Generations: {props.gridIterations}</div>
 			<button type="button" className="btn btn-success" onClick={props.onToggleRunning}>
 				{props.isGridRunning ? 'Pause' : 'Start'}
 			</button>
