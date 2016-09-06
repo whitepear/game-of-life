@@ -3,7 +3,7 @@ html, #app {
 }
 
 body {
-	@extends html;
+	@extend html;
 	background: url(/app/styles/images/ocean.jpg);		
 	font-family: 'Open Sans', sans-serif;
 }
