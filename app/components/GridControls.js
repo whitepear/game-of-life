@@ -3,8 +3,7 @@ var PropTypes = React.PropTypes;
 
 function GridControls (props) {
 	return (
-		<div>
-			<div className="generation-counter">Generations: {props.gridIterations}</div>
+		<div className="text-center">			
 			<button type="button" className="btn btn-success" onClick={props.onToggleRunning}>
 				{props.isGridRunning ? 'Pause' : 'Start'}
 			</button>
@@ -16,7 +15,6 @@ function GridControls (props) {
 }
 
 GridControls.propTypes = {
-	gridIterations: PropTypes.number.isRequired,
 	onToggleRunning: PropTypes.func.isRequired,
 	onRandomiseGrid: PropTypes.func.isRequired,
 	nextGrid: PropTypes.func.isRequired,

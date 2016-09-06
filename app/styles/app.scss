@@ -37,7 +37,7 @@ body {
 
 .grid {
 	margin: 75px auto;	
-	margin-top: 25px;
+	margin-top: 45px;
 	border: 2px solid rgba(0,0,0,0.4);
 	background: rgba(0,0,0,0.3);
 	width: 700px;
@@ -68,9 +68,7 @@ body {
 ////////////////////////////////////////////////////////////////////
 
 .generation-counter {
+	margin-top: 75px;
 	color: #fff;
-	position: absolute;
-	right: 60px;
-	bottom: 250px;
 	font-size: 40px;
 }

@@ -184,6 +184,7 @@ var GridContainer = React.createClass({
 					<p>Game</p>
 					<p>of</p>
 					<p>Life.</p>
+				<div className="generation-counter">Generations: {this.state.gridIterations}</div>
 				</div>	
 				<div className="grid">				
 					{this.createGridJSX(this.state.populatedGrid)}
