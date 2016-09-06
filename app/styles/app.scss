@@ -72,3 +72,43 @@ body {
 	color: #fff;
 	font-size: 40px;
 }
+
+.button {
+	font-size: 20px;
+	padding: 20px;
+	border: 1px solid #ccc;
+
+	&:hover {
+		border: 1px solid #ccc;
+		background: #ddd;
+	}
+
+	&:active {
+		border: 1px solid #bbb;
+		background: #ccc;
+	}
+
+	&:disabled {
+		opacity: 0.25;
+	}
+
+	&-play {
+		border-radius: 0px;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+
+	&-clear {
+		border-radius: 0px;
+	}
+
+	&-random {
+		border-radius: 0px;
+	}
+
+	&-step {
+		border-radius: 0px;
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+}
