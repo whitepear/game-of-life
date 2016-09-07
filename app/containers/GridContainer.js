@@ -180,10 +180,11 @@ var GridContainer = React.createClass({
 		return (	
 			<div className="container">	
 				<div className="game-title">
-					<p>Conway's</p>
-					<p>Game</p>
-					<p>of</p>
-					<p>Life.</p>
+					<p className="show-widescreen">Conway's</p>
+					<p className="show-widescreen">Game</p>
+					<p className="show-widescreen">of</p>
+					<p className="show-widescreen">Life.</p>
+					<div className="hide-widescreen">Conway's Game of Life</div>
 					<div className="generation-counter">Generations: {this.state.gridIterations}</div>
 				</div>	
 				<div className="grid">				

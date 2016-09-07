@@ -3,7 +3,7 @@ var PropTypes = React.PropTypes;
 
 function GridControls (props) {
 	return (
-		<div className="text-center">			
+		<div className="text-center controls-container">			
 			<button type="button" className="btn button button-play" onClick={props.onToggleRunning}>
 				{props.isGridRunning ? <i className="fa fa-pause" aria-hidden="true"></i> : <i className="fa fa-play" aria-hidden="true"></i>}
 			</button>

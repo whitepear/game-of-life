@@ -4,8 +4,7 @@ html, #app {
 
 body {
 	@extend html;
-	background: url(/app/styles/images/ocean.jpg);		
-	font-family: 'Open Sans', sans-serif;
+	background: url(/app/styles/images/ocean.jpg);	
 }
 
 
@@ -29,6 +28,17 @@ body {
 	p {
 		margin: 0px;
 	}
+}
+
+.generation-counter {
+	margin-top: 75px;
+	color: #fff;
+	font-size: 40px;
+}
+
+.hide-widescreen {
+	// this class will change to display: block within media query, below.
+	display: none;
 }
 
 
@@ -66,12 +76,6 @@ body {
 
 // GRID-CONTROL STYLES
 ////////////////////////////////////////////////////////////////////
-
-.generation-counter {
-	margin-top: 75px;
-	color: #fff;
-	font-size: 40px;
-}
 
 .button {
 	font-size: 20px;
@@ -136,32 +140,35 @@ body {
 }
 
 @media (max-width: 1360px) {
-	// Change title and counter font-size
-	.game-title {
-		
+	// Hide the staggered title, show with single line title
+	// Move iteration counter and title to new locations	
+
+	.show-widescreen {
+		display: none;
+	}
+
+	.hide-widescreen {
+		display: block;
+		font-size: 45px;		
+	}
+
+	.game-title {		
+		top: 20px;
+		left: 50%;
+		margin-left: -250px;
 	}
 
 	.generation-counter {
-		
+		position: absolute;
+		top: 710px;
+		left: 410px;
 	}
 
-	.alive {
-		background: #333;
+	.grid {
+		margin-top: 100px;
+	}
+
+	.controls-container {
+		margin-bottom: 100px;
 	}
 }
-
-@media (max-width: 1199px) {
-	
-}
-
-@media (max-width: 991px) {
-
-}
-
-@media (max-width: 767px) {
-
-}	
-
-@media (max-width: 716px) {
-	// grid is unviewable at this width
-}	
